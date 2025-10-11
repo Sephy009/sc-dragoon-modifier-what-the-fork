@@ -1,6 +1,6 @@
 package lod.dragoonmodifier;
 
-import legend.game.modding.events.Event;
+import org.legendofdragoon.modloader.events.Event;
 import legend.game.saves.ConfigCollection;
 
 public class DifficultyChangedEvent extends Event {

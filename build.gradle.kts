@@ -38,18 +38,27 @@ repositories {
   mavenCentral()
   mavenLocal() // Uncomment to use mavenLocal version of LoD engine
   maven { url = uri("https://jitpack.io") }
+  flatDir { dirs("libs") }
 }
 
 dependencies {
-  implementation("legend:lod:snapshot") // Uncomment to use mavenLocal version of LoD engine (also comment out next line)
-//  implementation("com.github.Legend-of-Dragoon-Modding:Legend-of-Dragoon-Java:main-SNAPSHOT")
-  implementation("com.opencsv:opencsv:5.7.1")
-  runtimeOnly("org.lwjgl", "lwjgl", classifier = lwjglNatives)
-  runtimeOnly("org.lwjgl", "lwjgl-glfw", classifier = lwjglNatives)
-  runtimeOnly("org.lwjgl", "lwjgl-nuklear", classifier = lwjglNatives)
-  runtimeOnly("org.lwjgl", "lwjgl-opengl", classifier = lwjglNatives)
-  runtimeOnly("org.lwjgl", "lwjgl-stb", classifier = lwjglNatives)
+    // compile against SC 3.0 APIs (these are NOT bundled into your mod)
+    compileOnly(files("libs/mod-loader-4.2.0.jar"))
+    compileOnly(files("libs/lod-game-snapshot.jar"))
+
+    // Keep this — your mod depends on it for CSV parsing
+    implementation("com.opencsv:opencsv:5.7.1")
+
+    // Optional runtime dependencies (harmless to keep)
+    runtimeOnly("org.lwjgl", "lwjgl", classifier = lwjglNatives)
+    runtimeOnly("org.lwjgl", "lwjgl-glfw", classifier = lwjglNatives)
+    runtimeOnly("org.lwjgl", "lwjgl-nuklear", classifier = lwjglNatives)
+    runtimeOnly("org.lwjgl", "lwjgl-opengl", classifier = lwjglNatives)
+    runtimeOnly("org.lwjgl", "lwjgl-stb", classifier = lwjglNatives)
+
+    testImplementation("junit:junit:4.13.2")
 }
+
 
 javafx {
   version = "18.0.2"
